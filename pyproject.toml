@@ -1,0 +1,15 @@
+[project]
+name = "robotics0"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "flask>=3.1.0",
+    "gym-aloha>=0.1.1",
+    "gymnasium[classic-control]>=1.0.0",
+    "matplotlib>=3.10.0",
+    "msgpack>=1.1.0",
+    "mujoco==2.3.7",
+    "notebook>=7.3.2",
+]

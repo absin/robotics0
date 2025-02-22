@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="1"></canvas>
+</body>
+<script>
+
+    function createCanvasFromRGBAData(data, width, height) {
+        if (width * height !== data.length) throw new Error("width*height should equal data.length");
+        let canvas = document.getElementById("1");
+        canvas.width = width;
+        canvas.height = height;
+        let ctx = canvas.getContext("2d");
+        let imgData = ctx.createImageData(width, height);
+        for (let i = 0; i < data.length; i++) {
+            imgData.data[i * 4 + 0] = data[i][0];
+            imgData.data[i * 4 + 1] = data[i][1];
+            imgData.data[i * 4 + 2] = data[i][2];
+            imgData.data[i * 4 + 3] = data[i][3];
+        }
+        ctx.putImageData(imgData, 0, 0);
+        return canvas;
+    }
+    function render(){
+        fetch('data.json').then((response)=>response.json()).then((json)=>{
+        createCanvasFromRGBAData(json, 640, 480)
+    })
+    }
+</script>
+
+</html>
