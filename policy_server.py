@@ -34,13 +34,13 @@ def upload_file():
     original_width, original_height = image.size
     new_height = 640
     padding_top = 80
-    new_image = Image.new("RGB", (original_width, new_height), (0, 0, 0))
+    new_image = Image.new("RGB", (original_width, new_height), (0))
 
     new_image.paste(image, (0, padding_top))
-    new_image_resized = new_image.resize((224, 224))
+    new_image_resized = new_image.resize((224, 224), resample=Image.BILINEAR)
     new_image_resized_frame = np.array(new_image_resized.getdata())
     new_image_resized_frame_i = new_image_resized_frame.reshape((224, 224, 3))
-    new_image_resized_frame_i_t = new_image_resized_frame_i.transpose(2, 1, 0)
+    new_image_resized_frame_i_t = new_image_resized_frame_i.transpose(2, 0, 1)
     example = {'prompt': prompt,'images': { }, 'state': np.array(state_list)}
     example['images']['cam_high']  = np.array(new_image_resized_frame_i_t, dtype='uint8')
     print(example['images']['cam_high'].shape)
